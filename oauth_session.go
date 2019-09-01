@@ -578,6 +578,20 @@ func (o *OAuthSession) Save(v Voter, category string) error {
 	return nil
 }
 
+func (o *OAuthSession) Hide(linkname string) error {
+	// Build form for POST request.
+	form := url.Values{
+		"id": {linkname},
+	}
+	var s interface{}
+
+	err := o.postBody("https://oauth.reddit.com/api/hide", form, s)
+	if err != nil {
+		return err
+	}
+	return nil
+}
+
 // Unsave saves a link or comment using OAuth.
 func (o *OAuthSession) Unsave(v Voter, category string) error {
 	// Build form for POST request.
